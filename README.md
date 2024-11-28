@@ -75,9 +75,3 @@ Build the application for production:
 
 Make sure to replace `your-username` and `your_api_key_here` with your actual GitHub username and API key.
 
-### Submitting the Source Code
-
-1. **Initialize a Git repository** (if not already done):
-
-   ```sh
-   git init
