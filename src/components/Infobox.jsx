@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -8,8 +9,49 @@ import AcUnitIcon from "@mui/icons-material/AcUnit";
 import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import "../assets/style.css";
+import { Line } from "react-chartjs-2";
+import "chart.js/auto";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 export default function Infobox({ info }) {
+  const [sortedInfo, setSortedInfo] = useState([info]);
+  const [sortType, setSortType] = useState("temp");
+  const [cachedData, setCachedData] = useState(null);
+
+  useEffect(() => {
+    const cachedResponse = localStorage.getItem("weatherData");
+    if (cachedResponse) {
+      setCachedData(JSON.parse(cachedResponse));
+    } else {
+      localStorage.setItem("weatherData", JSON.stringify([info]));
+      setCachedData([info]);
+    }
+  }, [info]);
+
+  useEffect(() => {
+    if (cachedData) {
+      const sorted = [...cachedData].sort((a, b) => b[sortType] - a[sortType]);
+      setSortedInfo(sorted);
+    }
+  }, [sortType, cachedData]);
+
+  const handleSortChange = (e) => {
+    setSortType(e.target.value);
+  };
+
+  const data = {
+    labels: sortedInfo.map((item, index) => `Data ${index + 1}`),
+    datasets: [
+      {
+        label: "Temperature",
+        data: sortedInfo.map((item) => item.temp),
+        fill: false,
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+      },
+    ],
+  };
+
   const HOT_URL =
     "https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90JTIwd2VhdGhlcnxlbnwwfHwwfHx8MA%3D%3D";
   const COLD_URL =
@@ -20,6 +62,16 @@ export default function Infobox({ info }) {
   //   "https://plus.unsplash.com/premium_photo-1664303499312-917c50e4047b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D";
   return (
     <div className="info">
+      <FormControl fullWidth variant="outlined" margin="normal">
+        <InputLabel>Sort By</InputLabel>
+        <Select value={sortType} onChange={handleSortChange} label="Sort By">
+          <MenuItem value="temp">Temperature</MenuItem>
+          <MenuItem value="humidity">Humidity</MenuItem>
+          <MenuItem value="temp_min">Min Temp</MenuItem>
+          <MenuItem value="temp_max">Max Temp</MenuItem>
+        </Select>
+      </FormControl>
+
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
           <CardMedia
@@ -62,6 +114,7 @@ export default function Infobox({ info }) {
           </CardContent>
         </CardActionArea>
       </Card>
+      <Line data={data} />
     </div>
   );
 }
