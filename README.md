@@ -73,5 +73,4 @@ Build the application for production:
 - **API Key Configuration**: Instructions to create a `.env` file and add the necessary API key and URL.
 - **Running the Application**: Commands to start the development server and build the application for production.
 
-Make sure to replace `your-username` and `your_api_key_here` with your actual GitHub username and API key.
 
