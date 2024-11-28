@@ -15,3 +15,36 @@
 p{
     font-weight: bold;
 }
+
+.info{
+    margin-top: 10px;
+    color: #242424;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.chart-container {
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.8); /* Light background to ensure visibility */
+    border-radius: 10px;
+    width: 40%;
+    height: 50%;
+    padding: 20px;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10px;
+    color: #242424;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

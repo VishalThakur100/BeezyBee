@@ -43,11 +43,15 @@ export default function Infobox({ info }) {
     labels: sortedInfo.map((item, index) => `Data ${index + 1}`),
     datasets: [
       {
-        label: "Temperature",
-        data: sortedInfo.map((item) => item.temp),
+        label: 'Temperature',
+        data: sortedInfo.map(item => item.temp),
         fill: false,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "rgba(75,192,192,1)",
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: 'rgba(75,192,192,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(75,192,192,1)',
       },
     ],
   };
@@ -61,7 +65,7 @@ export default function Infobox({ info }) {
   // const IMG_URL =
   //   "https://plus.unsplash.com/premium_photo-1664303499312-917c50e4047b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D";
   return (
-    <div className="info">
+    <div className="info info-container">
       <FormControl fullWidth variant="outlined" margin="normal">
         <InputLabel>Sort By</InputLabel>
         <Select value={sortType} onChange={handleSortChange} label="Sort By">
@@ -72,7 +76,9 @@ export default function Infobox({ info }) {
         </Select>
       </FormControl>
 
-      <Card sx={{ maxWidth: 345 }}>
+     <div className="card-container">
+
+     <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -114,7 +120,10 @@ export default function Infobox({ info }) {
           </CardContent>
         </CardActionArea>
       </Card>
-      <Line data={data} />
+     </div>
+      <div className="chart-container">
+        <Line data={data} />
+      </div>
     </div>
   );
 }
