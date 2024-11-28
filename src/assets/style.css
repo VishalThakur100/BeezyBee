@@ -1,0 +1,17 @@
+.search{
+    align-items: center;
+    text-align: center;
+}
+
+.info{
+    margin-top: 10px;
+}
+
+.head{
+    color: #242424;
+   
+}
+
+p{
+    font-weight: bold;
+}
