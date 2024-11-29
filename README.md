@@ -3,6 +3,10 @@
 A React-based application that fetches and displays weather data from the OpenWeather API. Users can input a city name to view weather details, including temperature, humidity, and weather conditions. The application gracefully handles errors and provides a clean, user-friendly interface.
  It allows users to get weather information for a specified city, sort the data, and visualize it using charts.
 
+## Experience the Live app at this url
+    ```sh
+    https://beezy-bee.vercel.app/
+
 ## Features
 
 🚀 Features

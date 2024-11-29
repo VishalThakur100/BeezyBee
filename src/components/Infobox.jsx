@@ -17,6 +17,8 @@ export default function Infobox({ info }) {
   const [sortedInfo, setSortedInfo] = useState([info]);
   const [sortType, setSortType] = useState("temp");
   const [cachedData, setCachedData] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
+
 
   useEffect(() => {
     const cachedResponse = localStorage.getItem("weatherData");
@@ -34,6 +36,16 @@ export default function Infobox({ info }) {
       setSortedInfo(sorted);
     }
   }, [sortType, cachedData]);
+
+  useEffect(() => {
+    if (info.humidity > 80) {
+      setImageUrl("https://images.unsplash.com/photo-1433863448220-78aaa064ff47?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8UkFJTlklMjAlMjB3ZWF0aGVyfGVufDB8fDB8fHww");
+    } else if (info.temp < 15) {
+      setImageUrl("https://images.unsplash.com/photo-1500646023265-d32fe230bb88?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29sZCUyMCUyMHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D");
+    } else {
+      setImageUrl("https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90JTIwd2VhdGhlcnxlbnwwfHwwfHx8MA%3D%3D");
+    }
+  }, [info]);
 
   const handleSortChange = (e) => {
     setSortType(e.target.value);
@@ -56,12 +68,12 @@ export default function Infobox({ info }) {
     ],
   };
 
-  const HOT_URL =
-    "https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90JTIwd2VhdGhlcnxlbnwwfHwwfHx8MA%3D%3D";
-  const COLD_URL =
-    "https://images.unsplash.com/photo-1500646023265-d32fe230bb88?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29sZCUyMCUyMHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D";
-  const RAINY_URL =
-    "https://images.unsplash.com/photo-1433863448220-78aaa064ff47?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8UkFJTlklMjAlMjB3ZWF0aGVyfGVufDB8fDB8fHww";
+  // const HOT_URL =
+  //   "https://images.unsplash.com/photo-1489710437720-ebb67ec84dd2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aG90JTIwd2VhdGhlcnxlbnwwfHwwfHx8MA%3D%3D";
+  // const COLD_URL =
+  //   "https://images.unsplash.com/photo-1500646023265-d32fe230bb88?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Y29sZCUyMCUyMHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D";
+  // const RAINY_URL =
+  //   "https://images.unsplash.com/photo-1433863448220-78aaa064ff47?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8UkFJTlklMjAlMjB3ZWF0aGVyfGVufDB8fDB8fHww";
   // const IMG_URL =
   //   "https://plus.unsplash.com/premium_photo-1664303499312-917c50e4047b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHdlYXRoZXJ8ZW58MHx8MHx8fDA%3D";
   return (
@@ -83,13 +95,7 @@ export default function Infobox({ info }) {
           <CardMedia
             component="img"
             height="140"
-            image={
-              info.humidity > 80
-                ? RAINY_URL
-                : info.temp < 15
-                ? COLD_URL
-                : HOT_URL
-            }
+            image={imageUrl}
             alt="green iguana"
           />
           <CardContent>
@@ -127,3 +133,14 @@ export default function Infobox({ info }) {
     </div>
   );
 }
+
+
+
+
+// image={
+//   info.humidity > 80
+//     ? RAINY_URL
+//     : info.temp < 15
+//     ? COLD_URL
+//     : HOT_URL
+// }

@@ -33,7 +33,7 @@ export default function Search({ updateInfo }) {
         feels_like: jsonResponse.main.feels_like,
         weather: jsonResponse.weather[0].description,
       };
-      console.log(result);
+      // console.log(result);
       return result;
     } catch (err) {
       throw err;
@@ -43,7 +43,7 @@ export default function Search({ updateInfo }) {
   let handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(input);
+      // console.log(input);
       setinput("");
       let newData = await getWeather();
       updateInfo(newData);
